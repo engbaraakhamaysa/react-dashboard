@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useState } from "react";
 
 export default function SignUp() {
@@ -6,11 +7,32 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [passwordR, setPasswordR] = useState("");
   const [accept, setAccept] = useState(false);
+  const [emailError, setEmailError] = useState("");
+  // const [flag, setFlag] = useState(false);
   console.log(name);
+  // console.log(flag);
 
-  function Submit(e) {
+  async function Submit(e) {
     e.preventDefault(); //Dont Can Sumbent The Form
+    let flag = true;
     setAccept(true);
+    if (name === "" || password.length < 8 || passwordR !== password) {
+      flag = false; // setFlag(false);
+    } else flag = true; //setFlag(true) // use useState he change the vlaue after end function
+    try {
+      if (flag) {
+        let res = await axios.post("http://localhost:8000/api/user", {
+          name: name,
+          email: email,
+          password: password,
+          // password_confirmation: passwordR,
+        });
+        //.then((serthen) => console.log(serthen)); //what habend about send data
+      }
+    } catch (error) {
+      console.log(error);
+      setEmailError(error.response.status);
+    }
   }
   return (
     <div className="parent">
@@ -37,6 +59,9 @@ export default function SignUp() {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
+          {accept && emailError === 400 && (
+            <p className="error">Email Is already benn token</p>
+          )}
 
           <label htmlFor="password">Password:</label>
           <input
