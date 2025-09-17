@@ -12,6 +12,14 @@ body {
   background: linear-gradient(45deg, #ffffff, #000000); */
 }
 
+/*Header */
+
+.d-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* Register */
 
 .parent {
@@ -52,7 +60,8 @@ input::placeholder {
   align-items: center;
   margin-top: 40px;
 }
-.register button {
+.register button,
+.register-nav {
   outline: none;
   border: none;
   background-color: #86b7fe;
@@ -63,9 +72,11 @@ input::placeholder {
   transition: 0.3s;
   border: 2px solid white;
   font-weight: bold;
+  text-decoration: none;
 }
 
-.register button:hover {
+.register button:hover,
+.register-nav:hover {
   background-color: white;
   border: 2px solid #86b7fe;
   color: #86b7fe;
