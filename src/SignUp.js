@@ -21,13 +21,18 @@ export default function SignUp() {
     } else flag = true; //setFlag(true) // use useState he change the vlaue after end function
     try {
       if (flag) {
-        let res = await axios.post("http://localhost:8000/api/user", {
+        let res = await axios.post("http://localhost:8000/api/signup", {
           name: name,
           email: email,
           password: password,
           // password_confirmation: passwordR,
         });
         //.then((serthen) => console.log(serthen)); //what habend about send data
+        if (res.status === 201) {
+          window.localStorage.setItem("email", email);
+          window.location.pathname = "/";
+          console.log(window.localStorage.setItem("email"));
+        }
       }
     } catch (error) {
       console.log(error);

@@ -15,12 +15,17 @@ export default function Login() {
     } else flag = true; //setFlag(true) // use useState he change the vlaue after end function
     try {
       if (flag) {
-        let res = await axios.post("http://localhost:8000/api/user", {
+        let res = await axios.post("http://localhost:8000/api/login", {
           email: email,
           password: password,
-          // password_confirmation: passwordR,
         });
-        //.then((serthen) => console.log(serthen)); //what habend about send data
+        if (res.status === 200) {
+          window.localStorage.setItem("email", email);
+          // window.location.pathname = "/";
+          window.location.href = "/";
+
+          console.log(window.localStorage.setItem("email"));
+        }
       }
     } catch (error) {
       console.log(error);
