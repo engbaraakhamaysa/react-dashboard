@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import Header from "./Components/Header";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -21,7 +22,7 @@ export default function SignUp() {
     } else flag = true; //setFlag(true) // use useState he change the vlaue after end function
     try {
       if (flag) {
-        let res = await axios.post("http://localhost:8000/api/signup", {
+        let res = await axios.post("http://localhost:8000/api/auth/signup", {
           name: name,
           email: email,
           password: password,
@@ -40,62 +41,65 @@ export default function SignUp() {
     }
   }
   return (
-    <div className="parent">
-      <div className="register">
-        <form onSubmit={Submit}>
-          <label htmlFor="name">Name:</label>
-          <input
-            id="name"
-            type="text"
-            placeholder="Name..."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          {name === "" && accept && (
-            <p className="error">User Name is Required</p>
-          )}
+    <div>
+      <Header />
+      <div className="parent">
+        <div className="register">
+          <form onSubmit={Submit}>
+            <label htmlFor="name">Name:</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Name..."
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            {name === "" && accept && (
+              <p className="error">User Name is Required</p>
+            )}
 
-          <label htmlFor="email">Email:</label>
-          <input
-            id="email"
-            type="email"
-            placeholder="Email..."
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {accept && emailError === 400 && (
-            <p className="error">Email Is already benn token</p>
-          )}
+            <label htmlFor="email">Email:</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Email..."
+              value={email}
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {accept && emailError === 400 && (
+              <p className="error">Email Is already benn token</p>
+            )}
 
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            placeholder="Password..."
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {password.length < 8 && accept && (
-            <p className="error">Password must be than 8 Char</p>
-          )}
+            <label htmlFor="password">Password:</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Password..."
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {password.length < 8 && accept && (
+              <p className="error">Password must be than 8 Char</p>
+            )}
 
-          <label htmlFor="repeat">Repeat Password:</label>
-          <input
-            id="repeat"
-            type="password"
-            placeholder="Repeat Password..."
-            value={passwordR}
-            onChange={(e) => setPasswordR(e.target.value)}
-          />
-          {passwordR !== password && accept && (
-            <p className="error">Password Dose Not Match</p>
-          )}
+            <label htmlFor="repeat">Repeat Password:</label>
+            <input
+              id="repeat"
+              type="password"
+              placeholder="Repeat Password..."
+              value={passwordR}
+              onChange={(e) => setPasswordR(e.target.value)}
+            />
+            {passwordR !== password && accept && (
+              <p className="error">Password Dose Not Match</p>
+            )}
 
-          <div style={{ textAlign: "center" }}>
-            <button type="submit">Register</button>
-          </div>
-        </form>
+            <div style={{ textAlign: "center" }}>
+              <button type="submit">Register</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

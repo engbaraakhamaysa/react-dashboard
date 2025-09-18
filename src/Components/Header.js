@@ -6,10 +6,11 @@ export default function Header() {
     window.location.pathname = "/";
   }
   return (
-    <nav className="d-flex ">
+    <nav className="d-flex container ">
       <div className="d-flex flex-1">
         <Link to="/">Home</Link>
         <Link to="/About">About</Link>
+        <Link to="/dashboard">Dashboard</Link>
       </div>
       <div className="d-flex">
         {!window.localStorage.getItem("email") ? (
