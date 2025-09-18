@@ -1,6 +1,6 @@
 export default function Users() {
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <table>
         <thead>
           <th>ID</th>
