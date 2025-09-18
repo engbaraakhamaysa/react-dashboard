@@ -1,5 +1,6 @@
 import SideBar from "./Components/SideBar";
 import TopBar from "./Components/TopBar";
+import Users from "./Users";
 
 export default function Dashboard() {
   return (
@@ -7,9 +8,8 @@ export default function Dashboard() {
       <TopBar />
       <div className="content-flex">
         <SideBar />
-        <h1>test</h1>
+        <Users />
       </div>
-      <div>Dashboard</div>
     </div>
   );
 }
