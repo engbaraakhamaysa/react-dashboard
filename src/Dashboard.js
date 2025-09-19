@@ -9,7 +9,7 @@ export default function Dashboard() {
       <div className="content-flex">
         <SideBar />
         <div style={{ width: "80%" }}>
-          <Outlet />
+          <Outlet /> {/*onley Firest Futher not outlte chiled */}
         </div>
       </div>
     </div>
