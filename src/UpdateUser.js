@@ -19,5 +19,15 @@ export default function UpdateUser() {
       });
   }, []);
 
-  return <Form button="Updata" name={name} email={email} />;
+  return (
+    <Form
+      button="Updata"
+      name={name}
+      email={email}
+      action={`put`}
+      endPoint={`user/update/${id}`}
+      navigate="/dashboard/users"
+      hasLocalStorage={false}
+    />
+  );
 }

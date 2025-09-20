@@ -26,16 +26,19 @@ export default function Form(props) {
     } else flag = true; //setFlag(true) // use useState he change the vlaue after end function
     try {
       if (flag) {
-        let res = await axios.post("http://localhost:8000/api/auth/signup", {
-          name: name,
-          email: email,
-          password: password,
-          // password_confirmation: passwordR,
-        });
+        let res = await axios[props.action](
+          `http://localhost:8000/api/${props.endPoint}`,
+          {
+            name: name,
+            email: email,
+            password: password,
+            // password_confirmation: passwordR,
+          }
+        );
         //.then((serthen) => console.log(serthen)); //what habend about send data
-        if (res.status === 201) {
-          window.localStorage.setItem("email", email);
-          window.location.pathname = "/";
+        if (res.status === 200) {
+          props.hasLocalStorage && window.localStorage.setItem("email", email);
+          window.location.pathname = `${props.navigate}`;
           console.log(window.localStorage.setItem("email"));
         }
       }

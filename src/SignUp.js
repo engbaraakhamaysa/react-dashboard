@@ -5,7 +5,13 @@ export default function SignUp() {
   return (
     <div>
       <Header />
-      <Form button="Register" />
+      <Form
+        button="Register"
+        action={`post`}
+        endPoint="auth/signup"
+        navigate="/"
+        hasLocalStorage={true}
+      />
     </div>
   );
 }
