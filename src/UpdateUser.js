@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Form from "./Components/Forms/Form";
-import "./Components/Forms/update.css";
 
 export default function UpdateUser() {
   const [name, setName] = useState("baraa");

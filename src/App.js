@@ -7,6 +7,7 @@ import About from "./About";
 import Dashboard from "./Dashboard";
 import Users from "./Users";
 import UpdateUser from "./UpdateUser";
+import CreatUser from "./CreateUser";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="users" element={<Users />} />
           <Route path="users/:id" element={<UpdateUser />} />
+          <Route path="users/create" element={<CreatUser />} />
         </Route>
       </Routes>
     </div>

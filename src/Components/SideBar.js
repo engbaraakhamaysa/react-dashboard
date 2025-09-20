@@ -5,6 +5,9 @@ export default function SideBar() {
       <Link to="/dashboard/users" className="item-link">
         Users
       </Link>
+      <Link to="/dashboard/users/create" className="item-link">
+        New User
+      </Link>
     </div>
   );
 }
