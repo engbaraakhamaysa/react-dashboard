@@ -6,7 +6,7 @@ export default function Users() {
   const [users, setUsers] = useState([]);
   const [runUseEffect, setRenUseEffect] = useState(0);
   useEffect(() => {
-    fetch("http://localhost:8000/api/allusers")
+    fetch("http://localhost:8000/api/user/allusers")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -17,7 +17,7 @@ export default function Users() {
   async function deleteUser(id) {
     try {
       const res = await axios.delete(
-        `http://localhost:8000/api/deleteUser/${id}`
+        `http://localhost:8000/api/user/deleteUser/${id}`
       );
       if (res.status === 200) {
         setRenUseEffect((prv) => prv + 1);

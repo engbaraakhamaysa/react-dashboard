@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function UpdateUser() {
   const [name, setName] = useState("");
@@ -7,10 +7,19 @@ export default function UpdateUser() {
   const [password, setPassword] = useState("");
   const [passwordR, setPasswordR] = useState("");
   const [accept, setAccept] = useState(false);
-  const [emailError, setEmailError] = useState("");
-  // const [flag, setFlag] = useState(false);
-  console.log(name);
-  // console.log(flag);
+
+  const id = window.location.pathname.split("/").slice(-1)[0];
+  console.log(id);
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/user/showuser/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setName(data.name);
+        setEmail(data.email);
+      });
+  }, []);
 
   async function Submit(e) {
     e.preventDefault(); //Dont Can Sumbent The Form
@@ -21,22 +30,23 @@ export default function UpdateUser() {
     } else flag = true; //setFlag(true) // use useState he change the vlaue after end function
     try {
       if (flag) {
-        let res = await axios.post("http://localhost:8000/api/auth/signup", {
-          name: name,
-          email: email,
-          password: password,
-          // password_confirmation: passwordR,
-        });
-        //.then((serthen) => console.log(serthen)); //what habend about send data
-        if (res.status === 201) {
+        let res = await axios.put(
+          `http://localhost:8000/api/user/update/${id}`,
+          {
+            name: name,
+            email: email,
+            password: password,
+            password_confirmation: passwordR,
+          }
+        );
+        if (res.status === 200) {
           window.localStorage.setItem("email", email);
-          window.location.pathname = "/";
+          window.location.pathname = "/dashboard/users";
           console.log(window.localStorage.setItem("email"));
         }
       }
     } catch (error) {
       console.log(error);
-      setEmailError(error.response.status);
     }
   }
   return (
@@ -64,9 +74,6 @@ export default function UpdateUser() {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
-          {accept && emailError === 400 && (
-            <p className="error">Email Is already benn token</p>
-          )}
 
           <label htmlFor="password">Password:</label>
           <input
@@ -93,7 +100,7 @@ export default function UpdateUser() {
           )}
 
           <div style={{ textAlign: "center" }}>
-            <button type="submit">Register</button>
+            <button type="submit">Update</button>
           </div>
         </form>
       </div>
