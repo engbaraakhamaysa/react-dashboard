@@ -2,10 +2,9 @@
 .content-flex {
   display: flex;
 }
-
-/* Top Bar */
-.top-bar {
-  box-shadow: 1px 1px 10px 1px #cbc9c9;
+.fa-solid {
+  color: #183151;
+  margin-right: 10px;
 }
 
 /* Side Bar */
@@ -19,9 +18,19 @@
   display: block;
   color: black;
   text-decoration: none;
-  font-size: 30px;
+  font-size: 22px;
+  margin-bottom: 10px;
+  transition: 0.3s;
+  padding: 10px;
 }
-
+.item-link:hover {
+  background-color: #a8c8cf;
+  border-radius: 12px;
+}
+.active {
+  background-color: #a8c8cf;
+  border-radius: 12px;
+}
 /* Table */
 
 table {

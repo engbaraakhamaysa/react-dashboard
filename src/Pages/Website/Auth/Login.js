@@ -1,5 +1,6 @@
 import { useState } from "react";
-import Header from "./Components/Header";
+import Header from "../../../Components/Header";
+import "./auth.css";
 import axios from "axios";
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -36,7 +37,7 @@ export default function Login() {
   return (
     <div>
       <Header />
-      <div className="parent">
+      <div className="parent  login">
         <div className="register">
           <form onSubmit={Submit}>
             <label htmlFor="email">Email:</label>

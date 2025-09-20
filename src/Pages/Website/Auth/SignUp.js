@@ -1,5 +1,5 @@
-import Form from "./Components/Forms/Form";
-import Header from "./Components/Header";
+import Form from "../../../Components/Form/Form";
+import Header from "../../../Components/Header";
 
 export default function SignUp() {
   return (

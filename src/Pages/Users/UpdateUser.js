@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Form from "./Components/Forms/Form";
+import Form from "../../Components/Form/Form";
 
 export default function UpdateUser() {
   const [name, setName] = useState("baraa");
@@ -16,7 +16,7 @@ export default function UpdateUser() {
         setName(data.name);
         setEmail(data.email);
       });
-  }, []);
+  }, [id]);
 
   return (
     <>

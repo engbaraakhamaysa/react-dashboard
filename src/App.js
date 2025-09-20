@@ -1,13 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Header from "./Components/Header";
-import SignUp from "./SignUp";
-import Login from "./Login";
-import Home from "./Home";
-import About from "./About";
-import Dashboard from "./Dashboard";
-import Users from "./Users";
-import UpdateUser from "./UpdateUser";
-import CreatUser from "./CreateUser";
+import SignUp from "./Pages/Website/Auth/SignUp";
+import Login from "./Pages/Website/Auth/Login";
+import Home from "./Pages/Website/Home";
+import About from "./Pages/Website/About";
+import Dashboard from "./Pages/Dashboard/Dashboard";
+import Users from "./Pages/Users/Users";
+import UpdateUser from "./Pages/Users/UpdateUser";
+import CreatUser from "./Pages/Users/CreateUser";
 
 export default function App() {
   return (
@@ -20,7 +19,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="users" element={<Users />} />
           <Route path="users/:id" element={<UpdateUser />} />
-          <Route path="users/create" element={<CreatUser />} />
+          <Route path="user/create" element={<CreatUser />} />
         </Route>
       </Routes>
     </div>
