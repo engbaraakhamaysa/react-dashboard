@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import Form from "./Components/Form";
+import Form from "./Components/Forms/Form";
+import "./Components/Forms/update.css";
 
 export default function UpdateUser() {
   const [name, setName] = useState("baraa");
@@ -20,14 +20,22 @@ export default function UpdateUser() {
   }, []);
 
   return (
-    <Form
-      button="Updata"
-      name={name}
-      email={email}
-      action={`put`}
-      endPoint={`user/update/${id}`}
-      navigate="/dashboard/users"
-      hasLocalStorage={false}
-    />
+    <>
+      <h1>Update User</h1>
+      <div>
+        <Form
+          button="Update"
+          name={name}
+          email={email}
+          action={`put`}
+          endPoint={`user/update/${id}`}
+          navigate="/dashboard/users"
+          hasLocalStorage={false}
+          styleReagister={false}
+          form={false}
+          buttonstyle={true}
+        />
+      </div>
+    </>
   );
 }
