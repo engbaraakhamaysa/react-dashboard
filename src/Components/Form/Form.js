@@ -1,14 +1,18 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./index.css";
+import { User } from "../../Pages/Website/Context/Context";
 
 export default function Form(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordR, setPasswordR] = useState("");
-  const [accept, setAccept] = useState(false);
+  // const [accept, setAccept] = useState(false);
   const [emailError, setEmailError] = useState("");
+
+  const userNow = useContext(User);
+  console.log(userNow);
 
   const styleReagister = {
     display: "flex",
@@ -35,29 +39,29 @@ export default function Form(props) {
 
   async function Submit(e) {
     e.preventDefault(); //Dont Can Sumbent The Form
-    let flag = true;
-    setAccept(true);
-    if (name === "" || password.length < 8 || passwordR !== password) {
-      flag = false; // setFlag(false);
-    } else flag = true; //setFlag(true) // use useState he change the vlaue after end function
+    // let flag = true;
+    // setAccept(true);
+    // if (name === "" || password.length < 8 || passwordR !== password) {
+    //   flag = false; // setFlag(false);
+    // } else flag = true; //setFlag(true) // use useState he change the vlaue after end function
     try {
-      if (flag) {
-        let res = await axios[props.action](
-          `http://localhost:8000/api/${props.endPoint}`,
-          {
-            name: name,
-            email: email,
-            password: password,
-            // password_confirmation: passwordR,
-          }
-        );
-        //.then((serthen) => console.log(serthen)); //what habend about send data
-        if (res.status === 200) {
-          props.hasLocalStorage && window.localStorage.setItem("email", email);
-          window.location.pathname = `${props.navigate}`;
-          console.log(window.localStorage.setItem("email"));
+      // if (flag) {
+      let res = await axios[props.action](
+        `http://localhost:8000/api/${props.endPoint}`,
+        {
+          name: name,
+          email: email,
+          password: password,
+          // password_confirmation: passwordR,
         }
+      );
+      //.then((serthen) => console.log(serthen)); //what habend about send data
+      if (res.status === 200) {
+        props.hasLocalStorage && window.localStorage.setItem("email", email);
+        window.location.pathname = `${props.navigate}`;
+        console.log(window.localStorage.setItem("email"));
       }
+      // }
     } catch (error) {
       console.log(error);
       setEmailError(error.response.status);
@@ -77,9 +81,9 @@ export default function Form(props) {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        {name === "" && accept && (
+        {/* {name === "" && accept && (
           <p className="error">User Name is Required</p>
-        )}
+        )} */}
 
         <label htmlFor="email">Email:</label>
         <input
@@ -90,9 +94,9 @@ export default function Form(props) {
           required
           onChange={(e) => setEmail(e.target.value)}
         />
-        {accept && emailError === 400 && (
+        {/* {accept && emailError === 400 && (
           <p className="error">Email Is already benn token</p>
-        )}
+        )} */}
 
         <label htmlFor="password">Password:</label>
         <input
@@ -102,9 +106,9 @@ export default function Form(props) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {password.length < 8 && accept && (
+        {/* {password.length < 8 && accept && (
           <p className="error">Password must be than 8 Char</p>
-        )}
+        )} */}
 
         <label htmlFor="repeat">Repeat Password:</label>
         <input
@@ -114,9 +118,9 @@ export default function Form(props) {
           value={passwordR}
           onChange={(e) => setPasswordR(e.target.value)}
         />
-        {passwordR !== password && accept && (
+        {/* {passwordR !== password && accept && (
           <p className="error">Password Dose Not Match</p>
-        )}
+        )} */}
 
         <div style={{ textAlign: "center" }}>
           <button

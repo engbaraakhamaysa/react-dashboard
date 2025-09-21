@@ -38,13 +38,6 @@ body {
   text-decoration: none;
 }
 
-.login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: "80hv";
-}
-
 .parent {
   display: flex;
   justify-content: center;
