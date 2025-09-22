@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import "./index.css";
-import { User } from "../../Pages/Website/Context/Context";
+
+import { User } from "../../Pages/Website/Context/UserContext";
 
 export default function Form(props) {
   const [name, setName] = useState("");
@@ -55,12 +55,21 @@ export default function Form(props) {
           // password_confirmation: passwordR,
         }
       );
+      const token = res.data.token.accessToken;
+      const userDetails = res.data.user;
+
+      console.log(token);
+      console.log(userDetails);
+
+      userNow.setAuth({ token, userDetails });
+
       //.then((serthen) => console.log(serthen)); //what habend about send data
-      if (res.status === 200) {
-        props.hasLocalStorage && window.localStorage.setItem("email", email);
-        window.location.pathname = `${props.navigate}`;
-        console.log(window.localStorage.setItem("email"));
-      }
+      // if (res.status === 200) {
+      //   props.hasLocalStorage && window.localStorage.setItem("email", email);
+      //   window.location.pathname = `${props.navigate}`;
+      //   console.log(window.localStorage.setItem("email"));
+      // }
+
       // }
     } catch (error) {
       console.log(error);

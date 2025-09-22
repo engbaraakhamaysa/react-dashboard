@@ -21,13 +21,13 @@ export default function Login() {
           email: email,
           password: password,
         });
-        if (res.status === 200) {
-          window.localStorage.setItem("email", email);
-          // window.location.pathname = "/";
-          window.location.href = "/";
+        // if (res.status === 200) {
+        //   window.localStorage.setItem("email", email);
+        //   // window.location.pathname = "/";
+        //   window.location.href = "/";
 
-          console.log(window.localStorage.setItem("email"));
-        }
+        //   console.log(window.localStorage.setItem("email"));
+        // }
       }
     } catch (error) {
       console.log(error);
@@ -37,7 +37,7 @@ export default function Login() {
   return (
     <div>
       <Header />
-      <div className="parent  login">
+      <div className="parent">
         <div className="register">
           <form onSubmit={Submit}>
             <label htmlFor="email">Email:</label>
