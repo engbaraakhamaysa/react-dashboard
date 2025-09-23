@@ -1,17 +1,28 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { User } from "../../Pages/Website/Context/UserContext";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [runUseEffect, setRenUseEffect] = useState(0);
+
+  const context = useContext(User);
+  const token = context.auth.token;
+  console.log(token);
+
   useEffect(() => {
-    fetch("http://localhost:8000/api/user/allusers")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setUsers(data);
-      });
+    axios
+      .get("http://localhost:8000/api/user/allusers", {
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        },
+      })
+      .then((res) => {
+        setUsers(res.data);
+      })
+      .catch((err) => console.log(err));
   }, [runUseEffect]);
 
   async function deleteUser(id) {
