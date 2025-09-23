@@ -28,7 +28,13 @@ export default function Users() {
   async function deleteUser(id) {
     try {
       const res = await axios.delete(
-        `http://localhost:8000/api/user/deleteUser/${id}`
+        `http://localhost:8000/api/user/deleteUser/${id}`,
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
       );
       if (res.status === 200) {
         setRenUseEffect((prv) => prv + 1);
