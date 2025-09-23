@@ -3,25 +3,28 @@ import { useContext, useState } from "react";
 import { User } from "../Context/UserContext";
 import "./auth.css";
 import Header from "../../../Components/Header";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordR, setPasswordR] = useState("");
-  const [emailError, setEmailError] = useState("");
+  const [emailError, setEmailError] = useState(false);
+  const [accept, setAccept] = useState(false);
 
+  const nav = useNavigate();
   const userNow = useContext(User);
-  console.log(userNow);
-
   async function Submit(e) {
     e.preventDefault();
+    setAccept(true);
     try {
-      let res = await axios.post(`http://localhost:8000/api/signup`, {
+      let res = await axios.post(`http://localhost:8000/api/auth/signup`, {
         name: name,
         email: email,
         password: password,
       });
+      console.log(res);
       const token = res.data.token.accessToken;
       const userDetails = res.data.user;
 
@@ -29,9 +32,14 @@ export default function Register() {
       console.log(userDetails);
 
       userNow.setAuth({ token, userDetails });
+      nav("/dashboard");
     } catch (error) {
       console.log(error);
-      setEmailError(error.response.status);
+      if (error.response.status === 400) {
+        setEmailError(true);
+      }
+
+      setAccept(true);
     }
   }
   return (
@@ -48,9 +56,9 @@ export default function Register() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          {/* {name === "" && accept && (
-          <p className="error">User Name is Required</p>
-        )} */}
+          {name.length < 2 && accept && (
+            <p className="error">Name must be more than 2 char</p>
+          )}
 
           <label htmlFor="email">Email:</label>
           <input
@@ -61,9 +69,9 @@ export default function Register() {
             required
             onChange={(e) => setEmail(e.target.value)}
           />
-          {/* {accept && emailError === 400 && (
-          <p className="error">Email Is already benn token</p>
-        )} */}
+          {accept && emailError && (
+            <p className="error">Email Is already benn token</p>
+          )}
 
           <label htmlFor="password">Password:</label>
           <input
@@ -73,9 +81,9 @@ export default function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {/* {password.length < 8 && accept && (
-          <p className="error">Password must be than 8 Char</p>
-        )} */}
+          {password.length < 8 && accept && (
+            <p className="error">Password must be than 8 Char</p>
+          )}
 
           <label htmlFor="repeat">Repeat Password:</label>
           <input
@@ -85,9 +93,9 @@ export default function Register() {
             value={passwordR}
             onChange={(e) => setPasswordR(e.target.value)}
           />
-          {/* {passwordR !== password && accept && (
-          <p className="error">Password Dose Not Match</p>
-        )} */}
+          {passwordR !== password && accept && (
+            <p className="error">Password Dose Not Match</p>
+          )}
 
           <div style={{ textAlign: "center" }}>
             <button type="submit">Register</button>

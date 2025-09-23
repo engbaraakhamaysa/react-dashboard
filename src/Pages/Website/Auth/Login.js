@@ -1,37 +1,41 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Header from "../../../Components/Header";
 import "./auth.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { User } from "../Context/UserContext";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [accept, setAccept] = useState(false);
   const [emailError, setEmailError] = useState("");
 
-  async function Submit(e) {
-    e.preventDefault(); //Dont Can Sumbent The Form
-    let flag = true;
-    setAccept(true);
-    if (password.length < 8) {
-      flag = false; // setFlag(false);
-    } else flag = true; //setFlag(true) // use useState he change the vlaue after end function
-    try {
-      if (flag) {
-        let res = await axios.post("http://localhost:8000/api/auth/login", {
-          email: email,
-          password: password,
-        });
-        // if (res.status === 200) {
-        //   window.localStorage.setItem("email", email);
-        //   // window.location.pathname = "/";
-        //   window.location.href = "/";
+  const nav = useNavigate();
 
-        //   console.log(window.localStorage.setItem("email"));
-        // }
-      }
+  const userNow = useContext(User);
+
+  async function Submit(e) {
+    e.preventDefault();
+    setAccept(true);
+
+    try {
+      let res = await axios.post("http://localhost:8000/api/auth/login", {
+        email: email,
+        password: password,
+      });
+
+      const token = res.data.token.accessToken;
+      const userDetails = res.data.user;
+
+      userNow.setAuth({ token, userDetails });
+      nav("/dashboard");
     } catch (error) {
       console.log(error);
-      setEmailError(error.response.status);
+      if (error.response.status === 400) {
+        setEmailError(true);
+      }
+      setAccept(true);
     }
   }
   return (
@@ -49,7 +53,7 @@ export default function Login() {
               required
               onChange={(e) => setEmail(e.target.value)}
             />
-            {accept && emailError === 400 && (
+            {accept && emailError && (
               <p className="error">Email Is already benn token</p>
             )}
 
