@@ -1,14 +1,14 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { User } from "../Pages/Website/Context/UserContext";
+
 import Cookies from "universal-cookie";
 import axios from "axios";
 
 export default function Header() {
   const cookie = new Cookies();
   const token = cookie.get("Bearer");
-  console.log(token);
+
   async function handleLogOut() {
+    console.log(token);
     await axios.post("http://localhost:8000/api/auth/logout", null, {
       headers: {
         Authorization: "Bearer " + token,
