@@ -6,7 +6,7 @@ import { User } from "./../Context/UserContext";
 export default function RequiredAuth() {
   const user = useContext(User);
   const location = useLocation();
-  console.log(user.auth.userDetails);
+  console.log(user.auth.token);
   return user.auth.userDetails ? (
     <Outlet />
   ) : (

@@ -4,6 +4,7 @@ import { User } from "../Context/UserContext";
 import "./auth.css";
 import Header from "../../../Components/Header";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -14,6 +15,8 @@ export default function Register() {
   const [accept, setAccept] = useState(false);
 
   const nav = useNavigate();
+
+  const cookie = new Cookies();
   const userNow = useContext(User);
   async function Submit(e) {
     e.preventDefault();
@@ -25,10 +28,12 @@ export default function Register() {
         password: password,
       });
       console.log(res);
-      const token = res.data.token.accessToken;
+      const token = res.data.token;
+      cookie.set("Bearer", token);
       const userDetails = res.data.user;
 
       console.log(token);
+
       console.log(userDetails);
 
       userNow.setAuth({ token, userDetails });
