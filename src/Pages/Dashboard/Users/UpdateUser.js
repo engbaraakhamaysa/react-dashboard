@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { User } from "../Website/Context/UserContext";
+import { User } from "../../Website/Context/UserContext";
 
 export default function CreateUser() {
   const [name, setName] = useState("");
@@ -14,15 +14,30 @@ export default function CreateUser() {
 
   const context = useContext(User);
   const token = context.auth.token;
-
   const nav = useNavigate();
+  const id = window.location.pathname.split("/").slice(-1)[0];
+  console.log(id);
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/api/user/showuser/${id}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setName(data.name);
+        setEmail(data.email);
+      });
+  }, [id]);
 
   async function Submit(e) {
     e.preventDefault();
     setAccept(true);
     try {
-      let res = await axios.post(
-        `http://localhost:8000/api/user/create`,
+      let res = await axios.put(
+        `http://localhost:8000/api/user/update/${id}`,
         {
           name: name,
           email: email,
@@ -101,7 +116,7 @@ export default function CreateUser() {
             )}
 
             <div className="register button" style={{ textAlign: "center" }}>
-              <button type="submit">Create User</button>
+              <button type="submit">Update User</button>
             </div>
           </form>
         </div>
@@ -109,19 +124,3 @@ export default function CreateUser() {
     </div>
   );
 }
-
-// import Form from "../../Components/Form/Form";
-
-// export default function CreatUser() {
-//   return (
-//     <div className="parent">
-//       <Form
-//         action={`post`}
-//         endPoint="user/create"
-//         navigate="/dashboard/users"
-//         buttonstyle={true}
-//         button="Create"
-//       />
-//     </div>
-//   );
-// }

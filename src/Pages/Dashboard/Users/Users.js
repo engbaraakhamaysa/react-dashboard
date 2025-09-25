@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { User } from "../../Pages/Website/Context/UserContext";
+import { User } from "../../Website/Context/UserContext";
 
 export default function Users() {
   const [users, setUsers] = useState([]);

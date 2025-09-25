@@ -4,11 +4,14 @@ import Login from "./Pages/Website/Auth/Login";
 import Home from "./Pages/Website/Home";
 import About from "./Pages/Website/About";
 import Dashboard from "./Pages/Dashboard/Dashboard";
-import Users from "./Pages/Users/Users";
-import UpdateUser from "./Pages/Users/UpdateUser";
-import CreatUser from "./Pages/Users/CreateUser";
+import Users from "./Pages/Dashboard/Users/Users";
+import UpdateUser from "./Pages/Dashboard/Users/UpdateUser";
+import CreatUser from "./Pages/Dashboard/Users/CreateUser";
 import RequiredAuth from "./Pages/Website/Auth/RequireAuth";
 import PersistLogin from "./Pages/Website/Auth/PresistLogin";
+import Products from "./Pages/Dashboard/Products/Products";
+import NewProducts from "./Pages/Dashboard/Products/NewProduct";
+import UpdateProduct from "./Pages/Dashboard/Products/UpdateProduct";
 
 export default function App() {
   return (
@@ -27,6 +30,9 @@ export default function App() {
               <Route path="users" element={<Users />} />
               <Route path="users/:id" element={<UpdateUser />} />
               <Route path="user/create" element={<CreatUser />} />
+              <Route path="products" element={<Products />} />
+              <Route path="products/create" element={<NewProducts />} />
+              <Route path="products/:id" element={<UpdateProduct />} />
             </Route>
           </Route>
         </Route>
