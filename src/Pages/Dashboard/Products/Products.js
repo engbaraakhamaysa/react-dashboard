@@ -39,8 +39,8 @@ export default function Products() {
       if (res.status === 200) {
         setRenUseEffect((prv) => prv + 1);
       }
-    } catch {
-      console.log("Error");
+    } catch (err) {
+      console.log("Error", err);
     }
   }
 
