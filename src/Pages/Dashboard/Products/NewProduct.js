@@ -18,12 +18,14 @@ export default function NewProduct() {
     e.preventDefault();
     setAccept(true);
     try {
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("image", image);
       let res = await axios.post(
-        `http://localhost:8000/api/user/create`,
+        `http://localhost:8000/api/product/create`,
         {
-          title: title,
-          description: description,
-          image: image,
+          formData,
         },
         {
           headers: {
@@ -33,7 +35,7 @@ export default function NewProduct() {
       );
       console.log(res);
 
-      nav("/dashboard/users");
+      nav("/dashboard/products");
     } catch (error) {
       console.log(error);
 
@@ -60,7 +62,7 @@ export default function NewProduct() {
             <label htmlFor="description">Description:</label>
             <input
               id="description"
-              type="email"
+              type="text"
               placeholder="Description..."
               value={description}
               required
