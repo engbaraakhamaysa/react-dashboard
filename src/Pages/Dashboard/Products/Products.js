@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { User } from "../../Website/Context/UserContext";
 
 export default function Products() {
-  const [products, setproducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [runUseEffect, setRenUseEffect] = useState(0);
 
   const context = useContext(User);
@@ -15,23 +15,21 @@ export default function Products() {
     axios
       .get("http://localhost:8000/api/product/allproducts", {
         headers: {
-          Accept: "application/json",
           Authorization: "Bearer " + token,
         },
       })
       .then((res) => {
-        setproducts(res.data);
+        setProducts(res.data);
       })
       .catch((err) => console.log(err));
   }, [runUseEffect]);
 
-  async function deleteUser(id) {
+  async function deleteProduct(id) {
     try {
       const res = await axios.delete(
         `http://localhost:8000/api/product/deleteproduct/${id}`,
         {
           headers: {
-            Accept: "application/json",
             Authorization: "Bearer " + token,
           },
         }
@@ -50,6 +48,15 @@ export default function Products() {
       <td>{product.title}</td>
       <td>{product.description}</td>
       <td>
+        {product.image && (
+          <img
+            src={product.image}
+            alt={product.title}
+            style={{ width: "80px", height: "80px", objectFit: "cover" }}
+          />
+        )}
+      </td>
+      <td>
         <Link to={`${product._id}`}>
           <i
             className="fa-solid fa-pen-to-square"
@@ -57,7 +64,7 @@ export default function Products() {
           ></i>
         </Link>
         <i
-          onClick={() => deleteUser(product._id)}
+          onClick={() => deleteProduct(product._id)}
           className="fa-solid fa-trash"
           style={{ color: "red", fontSize: "20px", cursor: "pointer" }}
         ></i>
@@ -73,6 +80,7 @@ export default function Products() {
             <th>ID</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Image</th>
             <th>Action</th>
           </tr>
         </thead>

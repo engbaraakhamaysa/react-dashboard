@@ -24,9 +24,9 @@ export default function NewProduct() {
       formData.append("image", image);
       let res = await axios.post(
         `http://localhost:8000/api/product/create`,
-        {
-          formData,
-        },
+
+        formData,
+
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -73,8 +73,6 @@ export default function NewProduct() {
             <input
               id="image"
               type="file"
-              placeholder="image..."
-              value={image}
               onChange={(e) => setImage(e.target.files.item(0))}
             />
 
